@@ -161,9 +161,10 @@ Extract every 4th line starting at the second line (extract the sequence from FA
 
     sed -n '2~4p' file.fq
 
-Print everything except the first line
+Print everything except the first line(delete the first line)
 
     awk 'NR>1' input.txt
+    sed 1d input.txt
 
 Print rows 20-80:
 
@@ -580,4 +581,9 @@ Exclude a column with cut (e.g., all but the 5th field in a tab-delimited file):
 Find files containing text (`-l` outputs only the file names, `-i` ignores the case `-r` descends into subdirectories)
 
     grep -lir "some text" *
+
+Get the value of a key in a key=value configuration file
+    
+    value=(cat config | grep -w '^key' | cut -d= -f2)
+    
 
