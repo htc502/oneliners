@@ -135,6 +135,10 @@ Print total number of bases in a fastq:
     or
     awk 'BEGIN{sum=0;}{if(NR%4==2){sum+=length($0);}}END{print sum;}'  file.fastq
 
+Print length distribution in a fastq:
+
+    awk 'NR%4 == 2 {read=$1;count[read]++} END {for (r in count) {print r, count[r]}}' file.fastq > tmp
+    awk 'BEGIN {print "read","readLen","count"} {print $1, length($1), $2}' tmp > lengthDist.txt
 
 Convert .bam back to .fastq:
 
