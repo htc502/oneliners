@@ -128,6 +128,12 @@ Returns all lines on Chr 1 between 1MB and 2MB in file.txt. (assumes) chromosome
 Basic sequence statistics. Print total number of reads, total number unique reads, percentage of unique reads, most abundant sequence, its frequency, and percentage of total in file.fq:
 
     cat myfile.fq | awk '((NR-2)%4==0){read=$1;total++;count[read]++}END{for(read in count){if(!max||count[read]>max) {max=count[read];maxRead=read};if(count[read]==1){unique++}};print total,unique,unique*100/total,maxRead,count[maxRead],count[maxRead]*100/total}'
+    
+Print total number of bases in a fastq:
+    
+    cat file.fastq | paste - - - - | cut -f 2 | tr -d '\n' | wc -c
+    or
+    awk 'BEGIN{sum=0;}{if(NR%4==2){sum+=length($0);}}END{print sum;}'  file.fastq
 
 
 Convert .bam back to .fastq:
